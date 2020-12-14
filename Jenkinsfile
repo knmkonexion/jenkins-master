@@ -21,9 +21,9 @@ pipeline {
       steps {
         sh """
           docker images
-          docker rin -it ${IMAGE_NAME}:${IMAGE_VERSION} bash -c 'docker version'
-          docker rin -it ${IMAGE_NAME}:${IMAGE_VERSION} bash -c 'kind version'
-          docker rin -it ${IMAGE_NAME}:${IMAGE_VERSION} bash -c 'kubectl version'
+          docker run -it ${IMAGE_NAME}:${IMAGE_VERSION} bash -c 'docker version'
+          docker run -it ${IMAGE_NAME}:${IMAGE_VERSION} bash -c 'kind version'
+          docker run -it ${IMAGE_NAME}:${IMAGE_VERSION} bash -c 'kubectl version'
         """
       }
     }
