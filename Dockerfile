@@ -17,11 +17,9 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
     && rm -rf /var/lib/apt/lists/*
 
 # Install kubectl
-RUN apt-get install -y apt-transport-https gnupg2 curl \
-    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
-    echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list \
-    apt-get update \
-    apt-get install -y kubect
+RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.19.3/bin/linux/amd64/kubectl \
+    chmod a+x ./kubectl
+    mv ./kubectl /usr/local/bin
 
 USER jenkins
 
