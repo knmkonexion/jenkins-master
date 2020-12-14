@@ -17,22 +17,22 @@ pipeline {
       }
     }
     
-    // stage('Test Image') {
-    //   agent {
-    //     docker {
-    //       label 'master'
-    //       image "${IMAGE_NAME}:${IMAGE_VERSION}"
-    //       alwaysPull true
-    //       reuseNode true
-    //     }
-    //   }
-    //   steps {
-    //     sh """
-    //       docker version
-    //       kubectl version
-    //     """
-    //   }
-    // }
+    stage('Test Image') {
+      agent {
+        docker {
+          label 'master'
+          image "${IMAGE_NAME}:${IMAGE_VERSION}"
+          alwaysPull true
+          reuseNode true
+        }
+      }
+      steps {
+        sh """
+          docker version
+          kubectl version
+        """
+      }
+    }
 
   }
 }
