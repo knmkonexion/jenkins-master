@@ -24,9 +24,8 @@ pipeline {
       agent {
         docker {
           label 'master'
-          image "${registry}/${IMAGE_NAME}:${IMAGE_VERSION}"
-          registryCredentialsId 'kasey-dockerhub'
-          alwaysPull true
+          image dockerImage
+          registryCredentialsId registryCredential
           reuseNode true
         }
       }
