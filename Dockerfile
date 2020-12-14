@@ -18,7 +18,7 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
 
 # Install kubectl
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.19.3/bin/linux/amd64/kubectl \
-    chmod a+x ./kubectl
+    chmod a+x ./kubectl \
     mv ./kubectl /usr/local/bin
 
 USER jenkins
