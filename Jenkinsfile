@@ -25,6 +25,7 @@ pipeline {
         docker {
           label 'master'
           image "${registry}/${IMAGE_NAME}:${IMAGE_VERSION}"
+          registryCredentialsId 'kasey-dockerhub'
           alwaysPull true
           reuseNode true
         }
