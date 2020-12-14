@@ -28,7 +28,7 @@ pipeline {
   }
   post {
     always {
-      sh('docker rmi $(docker images -a -q) && docker images')
+      sh('docker rmi $(docker images --filter "dangling=true" -q --no-trunc) && docker images')
     }
   }
 }
