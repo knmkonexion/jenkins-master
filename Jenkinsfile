@@ -3,17 +3,20 @@ pipeline {
   agent { label 'master' }
 
   environment {
-    IMAGE_NAME='jenkins'
-    IMAGE_VERSION='local'
+    registry = 'knmkonexion'
+    registryCredential = 'kasey-dockerhub'
+    dockerImage = ''
+    IMAGE_NAME = 'jenkins'
+    IMAGE_VERSION = 'latest'
   }
 
   stages {
 
     stage('Build Image') {
       steps {
-        sh """
-          docker build -t ${IMAGE_NAME}:${IMAGE_VERSION} .
-        """
+        script {
+          dockerImage = docker.build "${registry}/${IMAGE_NAME}:${IMAGE_VERSION}"
+        }
       }
     }
     
@@ -21,7 +24,7 @@ pipeline {
       agent {
         docker {
           label 'master'
-          image "${IMAGE_NAME}:${IMAGE_VERSION}"
+          image "${registry}/${IMAGE_NAME}:${IMAGE_VERSION}"
           alwaysPull true
           reuseNode true
         }
@@ -34,5 +37,13 @@ pipeline {
       }
     }
 
+    stage('Publish Image') {
+      steps {
+        script {
+          docker.withRegistry( '', registryCredential ) {
+          dockerImage.push()
+        }
+      }
+    }
   }
 }
