@@ -24,7 +24,7 @@ pipeline {
       agent {
         docker {
           label 'master'
-          image "${dockerImage}"
+          image "${registry}/${IMAGE_NAME}:${IMAGE_VERSION}"
           registryCredentialsId "${registryCredential}"
           reuseNode true
         }
