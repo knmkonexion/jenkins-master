@@ -18,11 +18,18 @@ pipeline {
     }
     
     stage('Test Image') {
+      agent {
+        docker {
+          label 'master'
+          image "${IMAGE_NAME}:${IMAGE_VERSION}"
+          alwaysPull true
+          reuseNode true
+        }
+      }
       steps {
         sh """
-          docker images
-          docker run -it ${IMAGE_NAME}:${IMAGE_VERSION} docker version
-          docker run -it ${IMAGE_NAME}:${IMAGE_VERSION} kubectl version
+          docker version
+          kubectl version
         """
       }
     }
