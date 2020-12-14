@@ -32,7 +32,7 @@ pipeline {
       steps {
         sh """
           docker version
-          kubectl version
+          kubectl help
         """
       }
     }
