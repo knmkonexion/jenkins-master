@@ -4,7 +4,7 @@ USER root
 
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 
-# install docker commandline interface and its dependencies
+# Install Docker CLI and dependencies
 RUN apt update && apt install -y lsb-release \
     software-properties-common \
     apt-transport-https \
@@ -15,6 +15,13 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
     https://download.docker.com/linux/debian $(lsb_release -cs) stable" \
     && apt update && apt install -y docker-ce-cli \
     && rm -rf /var/lib/apt/lists/*
+
+# Install kubectl
+RUN apt-get install -y apt-transport-https gnupg2 curl \
+    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - \
+    echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list \
+    apt-get update \
+    apt-get install -y kubect
 
 USER jenkins
 
