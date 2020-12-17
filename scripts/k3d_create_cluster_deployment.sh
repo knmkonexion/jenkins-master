@@ -10,7 +10,7 @@ clear
 # WORKING
 #----------
 # NOTES: Deploys to namespace from single file
-# can break the namespace yaml up if desired...will just need to chagne namespaces to deploy content(s)
+# can break the namespace yaml up if desired...will just need to change namespaces to deploy content(s)
 #----------
 # k3d cluster delete web-cluster
 # k3d cluster create web-cluster --api-port 6551 -p "8090:80@loadbalancer" --agents 1
