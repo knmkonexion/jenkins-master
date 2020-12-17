@@ -23,5 +23,5 @@ clear
 # this is for local development only, not a good habit for prod workloads
 #----------
 k3d cluster delete jenkins
-k3d cluster create jenkins --api-port 6552 -p "8082:80@loadbalancer" -v /mnt/d/k8s_datastore:/k3d_datastore -v /var/run/docker.sock:/var/run/docker.sock --agents 1
+k3d cluster create jenkins --api-port 6550 -p "8080:80@loadbalancer" -v /mnt/d/k8s_datastore:/k3d_datastore -v /var/run/docker.sock:/var/run/docker.sock --agents 1
 kubectl apply -f k8s/jenkins.yaml
