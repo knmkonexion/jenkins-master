@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx
+  name: nginx
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - image: knmkonexion/nginx-web:latest
+        name: nginx
+        ports:
+        - containerPort: 80
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  namespace: dev
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: nginx
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx
+  namespace: dev
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx
+            port:
+              number: 80
