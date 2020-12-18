@@ -4,7 +4,7 @@ clear
 
 # CLUSTER_NAME='jenkins'
 # k3d cluster create $CLUSTER_NAME --api-port 6551 -p "8090:80@loadbalancer" --agents 2
-# export KUBECONFIG="$(k3d kubeconfig write k3s-jenkins)"
+# export KUBECONFIG="$(k3d kubeconfig write k3d-${CLUSTER_NAME})"
 
 #----------
 # WORKING
